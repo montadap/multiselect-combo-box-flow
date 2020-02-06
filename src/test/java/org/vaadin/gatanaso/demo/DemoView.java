@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 import org.vaadin.gatanaso.MultiselectComboBox;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -39,20 +40,13 @@ public class DemoView extends VerticalLayout {
     }
 
     private void addSimpleStringDemo() {
-        MultiselectComboBox<String> multiselectComboBox = new MultiselectComboBox();
+        ComboBox<String> multiselectComboBox = new ComboBox();
         multiselectComboBox.setLabel("Multiselect combo box with string items");
         multiselectComboBox.setPlaceholder("Add");
         multiselectComboBox.setWidth("100%");
         multiselectComboBox.setItems("Item 1", "Item 2", "Item 3", "Item 4");
-        multiselectComboBox.addSelectionListener(
-                event -> Notification.show(event.toString()));
 
-        Button getValueBtn = new Button("Get value");
-        getValueBtn.addClickListener(
-                event -> multiselectComboBoxValueChangeHandler(
-                        multiselectComboBox));
-
-        add(buildDemoContainer(multiselectComboBox, getValueBtn));
+        add(buildDemoContainer(multiselectComboBox));
     }
 
     private void addObjectDemo() {
@@ -224,6 +218,20 @@ public class DemoView extends VerticalLayout {
         for (Button action : actions) {
             demoContainer.add(action);
         }
+        return demoContainer;
+    }
+
+    private VerticalLayout buildDemoContainer(
+            ComboBox multiselectComboBox) {
+        VerticalLayout demoContainer = new VerticalLayout();
+        demoContainer.getStyle().set("background-color", "#fcfcfc");
+        demoContainer.getStyle().set("box-shadow", "1px 1px 1px 1px #ccc");
+        demoContainer.setSpacing(true);
+        demoContainer.setMargin(true);
+        demoContainer.setWidth("600px");
+        setHorizontalComponentAlignment(Alignment.CENTER, demoContainer);
+        demoContainer.add(multiselectComboBox);
+        
         return demoContainer;
     }
 
